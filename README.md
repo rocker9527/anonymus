@@ -4,18 +4,33 @@ Telegram bot to send messages anonymously (not forward) to your group.
 
 ## Tutorial
 
-  - Create config.py
+  - Deploy with Docker
 
     ~~~
-    cp config.sample.py config.py
+    git clone https://github.com/traitcode/anonymus.git
+    cd anonymus
     ~~~
 
-  - Update Config
+    Run this after configuration 
+    
+    ~~~
+    docker-compose -f "docker-compose.yml" up -d --build
+    ~~~
 
-    ~~~
-    "BOT_TOKEN": "your_token",
-    "BOT_MANAGER": your_user_id,
-    ~~~
+  - Configurations
+
+    - Create config.py
+
+      ~~~
+      cp config.sample.py config.py
+      ~~~
+
+    - Update Config
+
+      ~~~
+      "BOT_TOKEN": "your_token",
+      "BOT_MANAGER": your_user_id,
+      ~~~
 
   - Add bot to your group
 
