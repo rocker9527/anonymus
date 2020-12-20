@@ -1,0 +1,4 @@
+src/config.py
+bot_log.log
+src/__pycache__
+storage

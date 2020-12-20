@@ -1,0 +1,7 @@
+version: '3'
+services:
+    python:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: anonymus:latest
