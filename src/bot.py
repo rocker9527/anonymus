@@ -17,7 +17,8 @@ awaiting_warn_reason = {}
 def start(update, ctx):
     chat = update.effective_chat
     if chat.type == Chat.GROUP:
-        update.message.reply_text(storage.get_string("BOT_GREETING_GROUP"))
+        pass
+        # update.message.reply_text(storage.get_string("BOT_GREETING_GROUP"))
     else:
         update.message.reply_text(storage.get_string("BOT_GREETING_USER"))
 
@@ -37,8 +38,9 @@ def listadmins(update, ctx):
 
 def setcurrentgroup(update, context):
     storage.set_target_chat(update.effective_chat.id)
-    update.message.reply_text(
-        storage.get_string("SET_GROUP_OK"))
+    # update.message.reply_text(
+    #     storage.get_string("SET_GROUP_OK"))
+    bot.delete_message(update.effective_chat.id, update.message.message_id)
 
 
 def setlocale(update, context):
@@ -100,7 +102,7 @@ def send_message(update, ctx):
     else:
         try:
             bot.send_message(storage.get_target_chat(), message_text, parse_mode=ParseMode.HTML)
-            update.message.reply_text(storage.get_string("MSG_SENT"))
+            bot.send_message(update.effective_chat.id, storage.get_string("MSG_SENT"), reply_to_message_id=update.message.message_id)
         except Exception as e:
             template = Template(storage.get_string("CANT_SEND"))
             update.message.reply_text(

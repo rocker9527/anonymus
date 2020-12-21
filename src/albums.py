@@ -68,4 +68,4 @@ def send_album(context):
             media.append(InputMediaVideo(media=update.message.video.file_id, caption='',parse_mode=ParseMode.HTML))
     
     bot.sendMediaGroup(chat_id=storage.get_target_chat(), media=media)
-    update.message.reply_text(storage.get_string("MSG_SENT"))
+    bot.send_message(update.effective_chat.id, storage.get_string("MSG_SENT"), reply_to_message_id=update.message.message_id)
