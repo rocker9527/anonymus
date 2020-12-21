@@ -20,6 +20,7 @@ from telegram import InputMedia, InputMediaPhoto, InputMediaVideo
 from telegram.ext import DispatcherHandlerStop, Updater
 from telegram import ChatAction
 from telegram import ParseMode
+from string import Template
 
 updater = Updater(storage.get_bot_token(), use_context=True)
 bot = updater.bot
@@ -67,5 +68,10 @@ def send_album(context):
         elif update.message.video:
             media.append(InputMediaVideo(media=update.message.video.file_id, caption='',parse_mode=ParseMode.HTML))
     
-    bot.sendMediaGroup(chat_id=storage.get_target_chat(), media=media)
-    bot.send_message(update.effective_chat.id, storage.get_string("MSG_SENT"), reply_to_message_id=update.message.message_id)
+    try:
+        bot.sendMediaGroup(chat_id=storage.get_target_chat(), media=media)
+        bot.send_message(update.effective_chat.id, storage.get_string("MSG_SENT"), reply_to_message_id=update.message.message_id)
+    except Exception as e:
+            template = Template(storage.get_string("CANT_SEND"))
+            bot.send_message(update.effective_chat.id, template.safe_substitute(message=e.message), reply_to_message_id=update.message.message_id)
+    
