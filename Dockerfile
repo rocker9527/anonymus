@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.8-alpine3.12
 
 LABEL maintainer="Trait Code"
 
@@ -7,7 +7,9 @@ RUN mkdir /Code
 WORKDIR /Code
 
 # install dependencies
-RUN pip install --no-cache-dir python-telegram-bot
+RUN apk add --no-cache --virtual .build-deps gcc libffi-dev musl-dev openssl-dev \
+    && pip install --no-cache-dir python-telegram-bot \
+    && apk del .build-deps gcc libffi-dev musl-dev openssl-dev
 
 # copy source code
 COPY src/ .
